@@ -21,11 +21,11 @@ const ItemsSchema = {  name: String}
 const Item = mongoose.model("Item", ItemsSchema)
 
 const item1 = new Item ({
-  name: "ori"
+  name: "you can create your own tab in todo app just add /then any name you want on the address"
 });
 
 const item2 = new Item ({
-  name: "fifa"
+  name: "you can create your own tab in todo app just add /then any name you want on the address"
 });
 
 const item3 = new Item ({
@@ -50,7 +50,7 @@ Item.insertMany(defaultitems, function(err){
 })
 res.redirect("/")
   } else {
-      res.render("list", {listTitle: "Today", newListItems: ls});
+      res.render("list", {listTitle: "Todo app", newListItems: ls});
   }
 
 })});
@@ -87,7 +87,7 @@ app.get("/:links", function(req, res) {
   //     name: itemName
   //   });
   
-  //   if (listName === "Today"){
+  //   if (listName === "Todo app"){
   //     item.save();
   //     res.redirect("/");
   //   } else {
@@ -111,7 +111,7 @@ app.post("/", function(req, res){
   });
   
 
-  if(newil === "Today"){
+  if(newil === "Todo app"){
     item.save();
     res.redirect("/");
   

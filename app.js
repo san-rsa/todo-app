@@ -39,6 +39,7 @@ const listSchema = { name: String, items: [ItemsSchema]};
 const List = mongoose.model("List", listSchema);
 
 
+
 app.get("/", function(req, res) {
  
 Item.find({}, function(err, ls){
@@ -48,32 +49,42 @@ Item.find({}, function(err, ls){
 //   if(err){  console.log("err");}
 //   else{console.log("success");}
 // })
-// res.redirect("/")
-//   } else {
-   res.render("list", {listTitle: "Todo app", newListItems: ls});
-//   }
+// if (!err){
+//   res.redirect("/")
+  res.render("list", {listTitle: "Todo app", newListItems: ls});
+// }else{
+//   console.log(err);
+// }
 
+  // } else {
+
+  // }
+
+// })
 })});
 app.get("/:links", function(req, res) {
   const Link = _.capitalize(req.params.links); 
-
+  if(Link == "About"){
+    res.render("about")
+  }
   List.findOne({name: Link},function(err, li) {
-    if(!err){
-  //     if(!li){
-  //       const listl = new List ({
-  //   name: Link, 
-  //   items: defaultitems
-    
-  //  });
-  // listl.save();
+   if(!err){
+   
+
+     if(!li){
+        const listl = new List ({
+    name: Link, 
+  
+  });
+ listl.save();
   res.redirect("/" + Link);
+
   
-  
-      // }else{
-        res.render("list",{listTitle: li.name, newListItems: li.items})
-      // }
-    }
-  } )
+     }else{
+       res.render("list",{listTitle: li.name, newListItems: li.items})
+     }
+   }
+ } )
  
   });
 
@@ -132,10 +143,10 @@ app.post("/delete", function(req, res){
   const checkboxid = req.body.checkbox;
   const itemd = req.body.listName;
   
-  if (itemd === "Today") {
+  if (itemd === "Todo app") {
     Item.findByIdAndRemove(checkboxid, function(err){
     if (!err) {
-      console.log("successfully deleted ");
+      // console.log("successfully deleted ");
        res.redirect("/");
     }
    
@@ -143,7 +154,7 @@ app.post("/delete", function(req, res){
   } else { 
     List.findOneAndUpdate({name: itemd}, {$pull: {items: {_id: checkboxid}}}, function(err, foundList){
       if (!err) {
-        console.log("successfully deleted another part  ");
+        // console.log("successfully deleted another part  ");
          res.redirect("/" + itemd);
       }
      
@@ -160,7 +171,7 @@ app.post("/delete", function(req, res){
 })
 
 
-app.get("/about", function(req, res){
+app.get("/About", function(req, res){
   res.render("about");
 });
 
@@ -171,5 +182,5 @@ if (port == null || port == "") {
 }
 
 app.listen(port, function(){
-  console.log("you are now running on a server");
+  // console.log("you are now running on a server");
 });

@@ -20,19 +20,19 @@ const ItemsSchema = {  name: String}
 
 const Item = mongoose.model("Item", ItemsSchema)
 
-const item1 = new Item ({
-  name: "you can create your own tab in todo app just add /then any name you want on the address"
-});
+// const item1 = new Item ({
+//   name: "you can create your own tab in todo app just add /then any name you want on the address"
+// });
 
-const item2 = new Item ({
-  name: "you can create your own tab in todo app just add /then any name you want on the address"
-});
+// const item2 = new Item ({
+//   name: "you can create your own tab in todo app just add /then any name you want on the address"
+// });
 
-const item3 = new Item ({
-  name: "listc"
-});
+// const item3 = new Item ({
+//   name: "listc"
+// });
 
-const defaultitems = [item1, item2, item3];
+// const defaultitems = [item1, item2, item3];
 
 const listSchema = { name: String, items: [ItemsSchema]};
 
@@ -42,16 +42,16 @@ const List = mongoose.model("List", listSchema);
 app.get("/", function(req, res) {
  
 Item.find({}, function(err, ls){
-  if (ls.length === 0) {
+//   if (ls.length === 0) {
     
-Item.insertMany(defaultitems, function(err){
-  if(err){  console.log("err");}
-  else{console.log("success");}
-})
-res.redirect("/")
-  } else {
-      res.render("list", {listTitle: "Todo app", newListItems: ls});
-  }
+// Item.insertMany(defaultitems, function(err){
+//   if(err){  console.log("err");}
+//   else{console.log("success");}
+// })
+// res.redirect("/")
+//   } else {
+   res.render("list", {listTitle: "Todo app", newListItems: ls});
+//   }
 
 })});
 app.get("/:links", function(req, res) {
@@ -59,19 +59,19 @@ app.get("/:links", function(req, res) {
 
   List.findOne({name: Link},function(err, li) {
     if(!err){
-      if(!li){
-        const listl = new List ({
-    name: Link, 
-    items: defaultitems
-  
-  });
-  listl.save();
+  //     if(!li){
+  //       const listl = new List ({
+  //   name: Link, 
+  //   items: defaultitems
+    
+  //  });
+  // listl.save();
   res.redirect("/" + Link);
   
   
-      }else{
+      // }else{
         res.render("list",{listTitle: li.name, newListItems: li.items})
-      }
+      // }
     }
   } )
  
